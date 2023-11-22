@@ -57,9 +57,13 @@ def hinge_loss_full(feature_matrix, labels, theta, theta_0):
         the hinge loss, as a float, associated with the given dataset and
         parameters.  This number should be the average hinge loss across all of
     """
+    # multiply the feature_vector and theta and add to the offset
+    y = np.matmul(feature_matrix, theta) + theta_0
+    # the loss will be the maximum value between 0 and 1 - y*label
+    losses = np.maximum(0.0, 1 - y * labels)
+    loss = np.mean(losses)
 
-    # Your code here
-    raise NotImplementedError
+    return loss
 
 
 def perceptron_single_step_update(feature_vector, label, current_theta, current_theta_0):
